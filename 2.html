@@ -24,6 +24,85 @@
     <img class="img_snap" style="width:300px;" />
 </div>
 
+<div>
+    <video controls width="300" >
+        <source src="2.mp4" type="video/mp4"></source>
+    </video>
+    <canvas class="canvas" width="100" height="100" style="display: none"></canvas>
+    <img class="img_snap" style="width:300px;" />
+</div>
+
+<div>
+    <video controls width="300" >
+        <source src="2.mp4" type="video/mp4"></source>
+    </video>
+    <canvas class="canvas" width="100" height="100" style="display: none"></canvas>
+    <img class="img_snap" style="width:300px;" />
+</div>
+
+<div>
+    <video controls width="300" >
+        <source src="2.mp4" type="video/mp4"></source>
+    </video>
+    <canvas class="canvas" width="100" height="100" style="display: none"></canvas>
+    <img class="img_snap" style="width:300px;" />
+</div>
+<div>
+    <video controls width="300" >
+        <source src="2.mp4" type="video/mp4"></source>
+    </video>
+    <canvas class="canvas" width="100" height="100" style="display: none"></canvas>
+    <img class="img_snap" style="width:300px;" />
+</div>
+
+<div>
+    <video controls width="300" >
+        <source src="2.mp4" type="video/mp4"></source>
+    </video>
+    <canvas class="canvas" width="100" height="100" style="display: none"></canvas>
+    <img class="img_snap" style="width:300px;" />
+</div>
+
+<div>
+    <video controls width="300" >
+        <source src="2.mp4" type="video/mp4"></source>
+    </video>
+    <canvas class="canvas" width="100" height="100" style="display: none"></canvas>
+    <img class="img_snap" style="width:300px;" />
+</div>
+
+<div>
+    <video controls width="300" >
+        <source src="2.mp4" type="video/mp4"></source>
+    </video>
+    <canvas class="canvas" width="100" height="100" style="display: none"></canvas>
+    <img class="img_snap" style="width:300px;" />
+</div>
+
+<div>
+    <video controls width="300" >
+        <source src="2.mp4" type="video/mp4"></source>
+    </video>
+    <canvas class="canvas" width="100" height="100" style="display: none"></canvas>
+    <img class="img_snap" style="width:300px;" />
+</div>
+
+<div>
+    <video controls width="300" >
+        <source src="2.mp4" type="video/mp4"></source>
+    </video>
+    <canvas class="canvas" width="100" height="100" style="display: none"></canvas>
+    <img class="img_snap" style="width:300px;" />
+</div>
+
+<div>
+    <video controls width="300" >
+        <source src="2.mp4" type="video/mp4"></source>
+    </video>
+    <canvas class="canvas" width="100" height="100" style="display: none"></canvas>
+    <img class="img_snap" style="width:300px;" />
+</div>
+
 
 
 <!-- start the script ... within that declare variables as follows... -->
@@ -35,23 +114,25 @@
         videoes.currentTime =10;
         var images=document.querySelectorAll(".img_snap");
         var w,h,ratio;
-        var i=0;
+        // var i=0;
         videoes.forEach(function(value, index) {
             video=document.querySelectorAll('video')[index] ;
-            video.currentTime =20;
+            loading_vedio(video , index , images);
         });
-        videoes.forEach(function(value, index) { // we add index param here, starts with 0
-            setTimeout(function() {
-                video=document.querySelectorAll('video')[i];
-                canvas=document.querySelectorAll('canvas')[i];
-                context=canvas.getContext('2d');
-                imageElemant=images[i];
-                video.addEventListener('loadedmetadata', lisenar(video,canvas,context));
-                i++;
-            }, 500*(index+1))
-        });
+
+        
+        // videoes.forEach(function(value, index) { // we add index param here, starts with 0
+        //     setTimeout(function() {
+        //         video=document.querySelectorAll('video')[i];
+        //         canvas=document.querySelectorAll('canvas')[i];
+        //         context=canvas.getContext('2d');
+        //         imageElemant=images[i];
+        //         video.addEventListener('loadedmetadata',  lisenar(video,canvas,context));
+        //         i++;
+        //     }, 500*(index+1))
+        // });
     }
-    async function lisenar(video,canvas,context) {
+    function lisenar(video,canvas,context) {
         ratio = video.videoWidth/video.videoHeight;
         w = video.videoWidth-100;
         h = parseInt(w/ratio,10);
@@ -60,6 +141,26 @@
         context.fillRect(0,0,w,h);
         context.drawImage(video,0,0,w,h);
         imageElemant.setAttribute("src", canvas.toDataURL());
+    }
+
+    function loading_vedio  (video ,index,images) {
+
+        return new Promise(function(resolve, reject){
+            var vElement =video;
+            vElement.load();
+            vElement.addEventListener('canplaythrough', function(){
+                video.currentTime =20;
+                canvas=document.querySelectorAll('canvas')[index];
+                context=canvas.getContext('2d');
+                imageElemant=images[index];
+                video.addEventListener('loadedmetadata',  lisenar(video,canvas,context));
+                resolve(vElement);
+            });
+            vElement.addEventListener('error', function(){
+                reject(vElement);
+            });
+
+        })
     }
 
 </script>
